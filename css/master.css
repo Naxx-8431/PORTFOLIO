@@ -1,4 +1,65 @@
 body {
-    background-color: #d7d7d7;
-    color: black;
+    margin-top: 35px;
+}
+
+.title {
+    opacity: 0.8;
+    transition: opacity .2s ease-in-out;
+}
+
+.title:hover {
+    opacity: 1;
+}
+
+.hero-img {
+    width: 50%;
+}
+
+.hero * {
+    transition: all 0.35s ease-in-out;
+}
+
+.dotted-line {
+    width: 150px;
+    border: none;
+    border-bottom: 7px dotted;
+    margin: 3rem auto;
+}
+
+.skills-section .skill-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.skills-section .skill-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.15);
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    transition: 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+#contact a.btn {
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+#contact a.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 992px) {
+    /* lg and up */
+    .hero-img {
+        width: 75%;
+    }
 }
