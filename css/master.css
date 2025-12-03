@@ -104,6 +104,7 @@ body {
 
 .project-card,
 .skills-section .skill-box {
+    will-change: transform;
     border: 1px solid rgba(6, 181, 212, 0.084) !important;  /* very subtle cyan border */
     backdrop-filter: blur(4px); 
     -webkit-backdrop-filter: blur(4px);
