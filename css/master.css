@@ -137,9 +137,10 @@ a:hover {
     box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
 }
 
-@media (min-width: 992px) {
-    /* lg and up */
-    .hero-img {
-        width: 75%;
-    }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-aos] {
+    animation: none !important;
+    transition: none !important;
+  }
 }
