@@ -1,11 +1,7 @@
-/* ========================================
-   NOTHING-STYLE LIGHT THEME
-   Industrial, minimal, technical aesthetic
-   ======================================== */
+/* NOTHING-STYLE LIGHT THEME
+   Industrial, minimal, technical aesthetic */
 
-/* ========================================
-   FONT DECLARATIONS
-   ======================================== */
+/* FONT DECLARATIONS */
 @font-face {
   font-family: 'NType82';
   src: url('../fonts/NType82-Regular.otf') format('opentype');
@@ -48,20 +44,13 @@
   font-style: normal;
 }
 
-/* ========================================
-   NOTHING-STYLE STATIC DOTTED BACKGROUND
-   Applies to the entire website
-   No animation, no movement
-   ======================================== */
-
+/* NOTHING-STYLE STATIC DOTTED BACKGROUND */
 html,
 body {
   height: 100%;
 }
 
-/* ========================================
-   1. COLOR SYSTEM
-   ======================================== */
+/* COLOR SYSTEM */
 :root {
   /* Light Theme Colors */
   --bg-primary: #FFFFFF;
@@ -121,9 +110,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ========================================
-   THEME TOGGLE BUTTON
-   ======================================== */
+/* THEME TOGGLE BUTTON */
 .theme-toggle {
   position: fixed;
   top: 20px;
@@ -191,9 +178,7 @@ strong {
   }
 }
 
-/* ========================================
-   CUSTOM SCROLL INDICATOR
-   ======================================== */
+/* CUSTOM SCROLL INDICATOR */
 .scroll-indicator {
   position: fixed;
   top: 80px;
@@ -309,9 +294,7 @@ body.dark-theme .scroll-track {
 }
 
 
-/* ========================================
-   2. TYPOGRAPHY
-   ======================================== */
+/* TYPOGRAPHY */
 
 /* Headings - Dot-matrix/mono style with dotted effect */
 h1,
@@ -383,20 +366,18 @@ button {
   font-size: clamp(0.95rem, 2.5vw, 1.2rem);
   line-height: 1.7;
   max-width: 720px;
+  min-height: 4.1rem;
+  display: block;
 }
 
-/* ========================================
-   3. LAYOUT & SPACING
-   ======================================== */
+
 
 /* Generous whitespace */
 section {
   padding: var(--spacing-lg) 0;
 }
 
-/* ========================================
-   4. UI COMPONENTS - FLAT DESIGN
-   ======================================== */
+/* UI COMPONENTS - FLAT DESIGN*/
 
 /* Skill boxes - clean, no borders */
 .skills-section .skill-box {
@@ -404,7 +385,6 @@ section {
   border: none !important;
   border-radius: 0 !important;
   padding: var(--spacing-md);
-  transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
@@ -464,6 +444,11 @@ body.dark-theme .project-card:hover {
 .project-card i,
 .card-body {
   transition: all 0.3s ease;
+}
+
+/* Project card titles - theme-aware */
+.project-card h5 {
+  color: var(--text-primary) !important;
 }
 
 /* Remove Bootstrap card backgrounds */

@@ -206,3 +206,26 @@ document.getElementById("year").textContent = new Date().getFullYear();
     // Initial position
     updateThumbPosition();
 })();
+
+
+// TYPEWRITER EFFECT — HERO DESCRIPTION
+
+(function () {
+    const el = document.getElementById('hero-typewriter');
+    if (!el) return;
+
+    const text = 'I build fast, responsive, and user-friendly web applications using modern frontend technologies with a focus on clean UI.';
+    let i = 0;
+
+    function type() {
+        if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 18);
+        }
+    }
+
+    // Start after a short delay so the heading/subtitle animate in first
+    setTimeout(type, 800);
+})();
+
