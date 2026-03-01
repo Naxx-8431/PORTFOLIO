@@ -1,16 +1,16 @@
-# 💼 Mohammed Naif — Portfolio Website
+#  Mohammed Naif — Portfolio Website
 
 This is my personal portfolio website showcasing my skills, projects, and contact information.  
 The site is fully responsive and built using **HTML**, **CSS**, **Bootstrap**, and **JavaScript**.
 
 ---
 
-## 🌐 Live Demo  
+##  Live Demo  
 **https://naifportfolio.dev**
 
 ---
 
-## ✨ Features
+##  Features
 - Modern and responsive design  
 - Hero introduction section  
 - Skills & technologies section  
@@ -21,7 +21,7 @@ The site is fully responsive and built using **HTML**, **CSS**, **Bootstrap**, a
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 - **HTML5**
 - **CSS3**
 - **Bootstrap 5**
@@ -30,7 +30,7 @@ The site is fully responsive and built using **HTML**, **CSS**, **Bootstrap**, a
 
 ---
 
-## 📁 Folder Structure
+##  Folder Structure
 ```
 /css
 /js
