@@ -457,6 +457,53 @@ body.dark-theme .project-card:hover {
   background-color: transparent !important;
 }
 
+/* Experience cards */
+.experience-card {
+  background: #F5F5F5;
+  transition: all 0.3s ease;
+}
+
+body.dark-theme .experience-card {
+  background: #1a1a1a;
+}
+
+.experience-card:hover {
+  border-color: var(--nothing-red) !important;
+}
+
+.experience-divider {
+  width: 1px;
+  background-color: var(--border-color);
+  align-self: stretch;
+}
+
+.exp-skill-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.experience-card:hover .exp-skill-tag {
+  border-color: var(--nothing-red);
+  color: var(--nothing-red);
+}
+
+.exp-desc-list {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.exp-desc-list li {
+  margin-bottom: 0.65rem;
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
 /* Ensure project cards have background */
 .project-card.card {
   background: #F5F5F5 !important;
