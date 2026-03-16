@@ -214,7 +214,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
     const el = document.getElementById('hero-typewriter');
     if (!el) return;
 
-    const text = 'I build fast, responsive, and user-friendly web applications using modern frontend technologies with a focus on clean UI.';
+    const text = 'I build fast, responsive, and user-friendly web applications using modern full-stack technologies with a focus on clean UI and efficient backend systems.';
     let i = 0;
 
     function type() {
