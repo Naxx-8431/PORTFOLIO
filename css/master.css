@@ -178,6 +178,32 @@ strong {
   }
 }
 
+
+
+/* GLOBE CONTAINER - relative to hero section, scrolls with page */
+.globe-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 140px;
+  height: 140px;
+  z-index: 5;
+  opacity: 0.85;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease !important;
+  cursor: pointer;
+}
+
+.globe-container:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+#globeCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* CUSTOM SCROLL INDICATOR */
 .scroll-indicator {
   position: fixed;
