@@ -183,10 +183,10 @@ strong {
 /* GLOBE CONTAINER - relative to hero section, scrolls with page */
 .globe-container {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 140px;
-  height: 140px;
+  top: max(10px, 2vw);
+  left: max(10px, 2vw);
+  width: clamp(80px, 15vw, 140px);
+  height: clamp(80px, 15vw, 140px);
   z-index: 5;
   opacity: 0.85;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease !important;

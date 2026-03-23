@@ -40,7 +40,7 @@
     <section class="container-fluid d-flex align-items-center min-vh-100" style="position: relative;">
 
         <div class="globe-container">
-            <canvas id="globeCanvas" width="280" height="280"></canvas>
+            <canvas id="globeCanvas"></canvas>
         </div>
 
         <div class="container text-center">
@@ -517,13 +517,21 @@
         let phi = 0;
         let globe;
 
+        let currentWidth = 0;
+        let currentHeight = 0;
+
         function initGlobe() {
             const isDark = document.body.classList.contains('dark-theme');
             if (globe) globe.destroy();
+            
+            // Get responsive dimensions
+            const container = document.querySelector('.globe-container');
+            const size = container ? container.offsetWidth : 140;
+
             globe = createGlobe(canvas, {
                 devicePixelRatio: 2,
-                width: 280,
-                height: 280,
+                width: size * 2,
+                height: size * 2,
                 phi: phi,
                 theta: 0.3,
                 dark: isDark ? 1 : 0,
@@ -537,6 +545,17 @@
                 onRender(state) {
                     state.phi = phi;
                     phi += spinSpeed;
+                    
+                    // Respond to resize
+                    if (container) {
+                        const newSize = container.offsetWidth;
+                        if (currentWidth !== newSize) {
+                            currentWidth = newSize;
+                            currentHeight = newSize;
+                            state.width = currentWidth * 2;
+                            state.height = currentHeight * 2;
+                        }
+                    }
                 }
             });
         }
