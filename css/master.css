@@ -180,28 +180,250 @@ strong {
 
 
 
-/* GLOBE CONTAINER - relative to hero section, scrolls with page */
-.globe-container {
+/* ========================================
+   ORBIT TECH STACK COMPONENT
+   ======================================== */
+.orbit-container {
   position: absolute;
   top: max(10px, 2vw);
   left: max(10px, 2vw);
-  width: clamp(80px, 15vw, 140px);
-  height: clamp(80px, 15vw, 140px);
+  width: clamp(120px, 15vw, 150px);
+  height: clamp(120px, 15vw, 150px);
   z-index: 5;
-  opacity: 0.85;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease !important;
-  cursor: pointer;
 }
 
-.globe-container:hover {
-  transform: scale(1.1);
-  opacity: 1;
+/* Soft central core */
+.orbit-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.06), transparent);
 }
 
-#globeCanvas {
-  display: block;
+body.dark-theme .orbit-core {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.07), transparent);
+}
+
+/* Orbit rings */
+.orbit-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+}
+
+/* Thin red orbit path lines */
+.orbit-ring::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 2px solid #ff00004d;
+  pointer-events: none;
+  animation: orbit-line-pulse 8s ease-in-out infinite;
+}
+
+/* Outer ring – clockwise at 30s */
+.orbit-ring-outer {
+  animation: orbit-spin-cw 30s linear infinite;
+}
+
+.orbit-ring-outer::before {
+  width: 110px;
+  height: 110px;
+  margin-left: -55px;
+  margin-top: -55px;
+}
+
+/* Inner ring – counter-clockwise at 36s */
+.orbit-ring-inner {
+  animation: orbit-spin-ccw 36s linear infinite;
+}
+
+.orbit-ring-inner::before {
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  margin-top: -32px;
+}
+
+/* Icon positioning on the orbit */
+.orbit-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbit-ring-outer .orbit-icon {
+  transform: rotate(var(--angle)) translateX(55px);
+}
+
+.orbit-ring-inner .orbit-icon {
+  transform: rotate(var(--angle)) translateX(32px);
+}
+
+/* Icon styling – monochrome, subtle */
+.orbit-icon i[class*="devicon-"] {
+  color: var(--text-secondary) !important;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  cursor: default;
+  line-height: 1;
+}
+
+.orbit-ring-outer .orbit-icon i {
+  font-size: 20px;
+  animation: orbit-upright-cw 30s linear infinite;
+}
+
+.orbit-ring-inner .orbit-icon i {
+  font-size: 17px;
+  opacity: 0.7;
+  animation: orbit-upright-ccw 36s linear infinite;
+}
+
+/* Hover: bump opacity + gentle scale (scale property avoids transform conflict) */
+.orbit-icon i:hover {
+  opacity: 1 !important;
+  scale: 1.15 !important;
+}
+
+/* ---- Keyframes ---- */
+
+/* Very subtle orbit line opacity pulse */
+@keyframes orbit-line-pulse {
+
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Ring rotation */
+@keyframes orbit-spin-cw {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-ccw {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Counter-rotation keeps icons upright while parent ring spins */
+@keyframes orbit-upright-cw {
+  from {
+    transform: rotate(calc(-1 * var(--angle)));
+  }
+
+  to {
+    transform: rotate(calc(-360deg - var(--angle)));
+  }
+}
+
+@keyframes orbit-upright-ccw {
+  from {
+    transform: rotate(calc(-1 * var(--angle)));
+  }
+
+  to {
+    transform: rotate(calc(360deg - var(--angle)));
+  }
+}
+
+/* Responsive – tablet */
+@media (max-width: 768px) {
+  .orbit-container {
+    width: 110px;
+    height: 110px;
+  }
+
+  .orbit-ring-outer .orbit-icon {
+    transform: rotate(var(--angle)) translateX(42px);
+  }
+
+  .orbit-ring-inner .orbit-icon {
+    transform: rotate(var(--angle)) translateX(25px);
+  }
+
+  .orbit-ring-outer::before {
+    width: 84px;
+    height: 84px;
+    margin-left: -42px;
+    margin-top: -42px;
+  }
+
+  .orbit-ring-inner::before {
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+  }
+
+  .orbit-ring-outer .orbit-icon i {
+    font-size: 16px;
+  }
+
+  .orbit-ring-inner .orbit-icon i {
+    font-size: 14px;
+  }
+}
+
+/* Responsive – mobile */
+@media (max-width: 480px) {
+  .orbit-container {
+    width: 90px;
+    height: 90px;
+  }
+
+  .orbit-ring-outer .orbit-icon {
+    transform: rotate(var(--angle)) translateX(35px);
+  }
+
+  .orbit-ring-inner .orbit-icon {
+    transform: rotate(var(--angle)) translateX(20px);
+  }
+
+  .orbit-ring-outer::before {
+    width: 70px;
+    height: 70px;
+    margin-left: -35px;
+    margin-top: -35px;
+  }
+
+  .orbit-ring-inner::before {
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    margin-top: -20px;
+  }
+
+  .orbit-ring-outer .orbit-icon i {
+    font-size: 14px;
+  }
+
+  .orbit-ring-inner .orbit-icon i {
+    font-size: 12px;
+  }
 }
 
 /* CUSTOM SCROLL INDICATOR */

@@ -229,3 +229,64 @@ document.getElementById("year").textContent = new Date().getFullYear();
     setTimeout(type, 800);
 })();
 
+// ========================================
+// ORBIT DEPTH EFFECT – subtle 3D perspective
+// Icons at the back of the orbit fade + shrink,
+// icons at the front are full opacity + size.
+// ========================================
+(function () {
+    const rings = document.querySelectorAll('.orbit-ring');
+    if (!rings.length) return;
+
+    // Pre-cache icon data for performance
+    const ringData = [];
+    rings.forEach(function (ring) {
+        const icons = [];
+        ring.querySelectorAll('.orbit-icon').forEach(function (icon) {
+            var angleStr = icon.style.getPropertyValue('--angle');
+            var angleDeg = parseFloat(angleStr) || 0;
+            var angleRad = angleDeg * (Math.PI / 180);
+            icons.push({ el: icon.querySelector('i'), wrapper: icon, angleRad: angleRad });
+        });
+        ringData.push({ ring: ring, icons: icons });
+    });
+
+    function updateDepth() {
+        ringData.forEach(function (data) {
+            var transform = getComputedStyle(data.ring).transform;
+            var ringAngle = 0;
+
+            if (transform && transform !== 'none') {
+                var match = transform.match(/matrix\((.+)\)/);
+                if (match) {
+                    var v = match[1].split(',');
+                    ringAngle = Math.atan2(parseFloat(v[1]), parseFloat(v[0]));
+                }
+            }
+
+            data.icons.forEach(function (icon) {
+                if (!icon.el) return;
+
+                // Skip hovered icons – CSS :hover !important handles those
+                if (icon.el.matches(':hover')) return;
+
+                var totalAngle = ringAngle + icon.angleRad;
+                var depth = Math.sin(totalAngle);         // -1 (back/top) → 1 (front/bottom)
+                var t = (depth + 1) / 2;                  // normalise: 0 → 1
+
+                // Opacity: 0.4 (back) → 1.0 (front)
+                icon.el.style.opacity = (0.4 + t * 0.6).toFixed(2);
+
+                // Scale: 0.88 (back) → 1.0 (front)
+                icon.el.style.scale = (0.88 + t * 0.12).toFixed(2);
+
+                // Z-index: back icons behind front icons
+                icon.wrapper.style.zIndex = Math.round(t * 10);
+            });
+        });
+
+        requestAnimationFrame(updateDepth);
+    }
+
+    requestAnimationFrame(updateDepth);
+})();
