@@ -88,6 +88,28 @@ body.dark-theme {
       transparent 1.5px);
 }
 
+/* Default (light mode) */
+::selection {
+  background: rgba(255, 45, 45, 0.2);
+  color: #000000;
+}
+
+::-moz-selection {
+  background: rgba(255, 45, 45, 0.2);
+  color: #000000;
+}
+
+/* Dark mode */
+.dark ::selection {
+  background: rgba(255, 45, 45, 0.35);
+  color: #ffffff;
+}
+
+.dark ::-moz-selection {
+  background: rgba(255, 45, 45, 0.35);
+  color: #ffffff;
+}
+
 body {
   margin: 0;
   color: var(--text-primary);
