@@ -50,6 +50,13 @@ body {
   height: 100%;
 }
 
+/* Lenis drives scroll smoothing manually; Bootstrap's native
+   `scroll-behavior: smooth` fights it and stacks extra lag on
+   every frame it writes to scrollTop. */
+html {
+  scroll-behavior: auto !important;
+}
+
 /* COLOR SYSTEM */
 :root {
   /* Light Theme Colors */
@@ -670,6 +677,10 @@ body.dark-theme .skills-section .skill-box {
 
 body.dark-theme .skills-section .skill-box:hover {
   background-color: #0a0a0a;
+}
+
+.skills-group h6 {
+  color: var(--text-secondary) !important;
 }
 
 /* Skills grid - flex-wrap so incomplete rows stretch instead of floating centered */

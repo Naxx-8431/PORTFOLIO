@@ -1,5 +1,43 @@
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// ========================================
+// LENIS SMOOTH SCROLL (global rAF-driven)
+// ========================================
+let lenis;
+(function () {
+    if (typeof Lenis === 'undefined') return;
+
+    lenis = new Lenis({
+        duration: 0.8,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        syncTouch: false,
+        touchMultiplier: 1
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Route in-page anchor links through Lenis instead of native jump
+    document.addEventListener('click', function (e) {
+        const link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+
+        const targetId = link.getAttribute('href');
+        if (!targetId || targetId.length <= 1) return;
+
+        const target = document.querySelector(targetId);
+        if (!target) return;
+
+        e.preventDefault();
+        lenis.scrollTo(target);
+    });
+})();
+
 // EmailJS Contact Form Handler
 (function () {
     const contactForm = document.getElementById('contact-form');
@@ -154,14 +192,22 @@ document.getElementById("year").textContent = new Date().getFullYear();
         const documentHeight = document.documentElement.scrollHeight;
         const scrollTop = scrollPercentage * (documentHeight - windowHeight);
 
-        window.scrollTo({
-            top: scrollTop,
-            behavior: 'smooth'
-        });
+        if (lenis) {
+            lenis.scrollTo(scrollTop);
+        } else {
+            window.scrollTo({
+                top: scrollTop,
+                behavior: 'smooth'
+            });
+        }
     }
 
-    // Update on scroll
-    window.addEventListener('scroll', updateThumbPosition);
+    // Update on scroll — stay in sync with Lenis when it's driving the page
+    if (lenis) {
+        lenis.on('scroll', updateThumbPosition);
+    } else {
+        window.addEventListener('scroll', updateThumbPosition);
+    }
     window.addEventListener('resize', updateThumbPosition);
 
     // Click on indicator to jump
