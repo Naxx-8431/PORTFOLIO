@@ -672,6 +672,23 @@ body.dark-theme .skills-section .skill-box:hover {
   background-color: #0a0a0a;
 }
 
+/* Skills grid - flex-wrap so incomplete rows stretch instead of floating centered */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.skills-grid > * {
+  flex: 1 1 calc(33.333% - 1rem);
+}
+
+@media (max-width: 767.98px) {
+  .skills-grid > * {
+    flex: 1 1 calc(50% - 0.75rem);
+  }
+}
+
 /* Project cards - clean, no borders */
 .project-card {
   background: #F5F5F5;
@@ -758,7 +775,7 @@ body.dark-theme .experience-card {
   transition: border-color 0.2s, color 0.2s;
 }
 
-.experience-card:hover .exp-skill-tag {
+.exp-skill-tag:hover {
   border-color: var(--nothing-red);
   color: var(--nothing-red);
 }
