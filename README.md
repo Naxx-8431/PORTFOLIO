@@ -13,8 +13,8 @@ Geist / Geist Mono text, dot-matrix accents, frosted floating header and a light
 ---
 
 ##  Features
-- Hero with typewriter intro and orbiting tech stack
-- Floating frosted header with full-screen menu and scroll progress
+- Text-only hero with a scroll-linked, word-by-word headline highlight
+- Floating frosted header with an expanding menu panel
 - Project showcase (swipeable carousel on mobile, grid on desktop)
 - Experience, skills and about sections
 - Contact form powered by EmailJS
@@ -37,8 +37,8 @@ Geist / Geist Mono text, dot-matrix accents, frosted floating header and a light
 
 ##  Folder Structure
 ```
-/css      master.css — design tokens + all styles
-/js       main.js — theme, menu, scroll, reveal, form
+/css      master.css (design tokens and all styles)
+/js       main.js (theme, menu, scroll, reveal, form) and hero.js (hero headline)
 /fonts    NType82 + Ndot typefaces
 /images
 /files    Resume.pdf
