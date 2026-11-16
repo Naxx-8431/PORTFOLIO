@@ -2,748 +2,456 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Mohammed Naif | Full Stack Web Developer</title>
+    <meta name="description"
+        content="Mohammed Naif is a Full Stack Web Developer building fast, responsive web applications with React, Next.js, Node.js and modern backend systems.">
     <meta name="google-site-verification" content="2ArohntGUw6kuR4GZVzpElqORzb3tTAr8M7jeWQVSkM" />
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="-1″">
-    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+    <link rel="canonical" href="https://naifportfolio.dev/">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mohammed Naif | Full Stack Web Developer">
+    <meta property="og:description"
+        content="I build fast, responsive, and user-friendly web applications using modern full-stack technologies.">
+    <meta property="og:url" content="https://naifportfolio.dev/">
+    <meta name="twitter:card" content="summary">
+    <meta name="theme-color" content="#0E0F15">
+
+    <!-- Theme before first paint (no flash) -->
+    <script>
+        (function () {
+            var d = document.documentElement, t = null;
+            d.classList.add('js');
+            try { t = localStorage.getItem('theme'); } catch (e) { }
+            if (t !== 'light' && t !== 'dark') {
+                t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            d.setAttribute('data-theme', t);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="preload" href="fonts/NType82-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="fonts/Ndot57-Regular.otf" as="font" type="font/otf" crossorigin>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-
-
-    <title>Mohammed Naif</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+    <link rel="stylesheet" href="css/master.css">
 </head>
 
 <body>
 
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-        <i class="bi bi-moon-fill" id="theme-icon"></i>
-    </button>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Custom Scroll Indicator -->
-    <div class="scroll-indicator" aria-label="Page scroll indicator">
-        <div class="scroll-track">
-            <div class="scroll-fill" id="scroll-fill"></div>
-            <div class="scroll-thumb" id="scroll-thumb"></div>
-        </div>
-    </div>
+    <!-- Column-marker dots (one per layout column) -->
+    <div class="dot-matrix" aria-hidden="true"></div>
 
+    <!-- ================= HEADER ================= -->
+    <header class="hdr" id="hdr">
+        <div class="hdr-bar">
+            <button class="hdr-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu"
+                aria-label="Open menu">
+                <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
+            </button>
 
+            <a href="#top" class="logo" aria-label="Mohammed Naif, back to top">Mohammed Naif</a>
 
-    <section class="container-fluid d-flex align-items-center min-vh-100" style="position: relative;">
-
-        <!-- Orbiting Tech Stack -->
-        <div class="orbit-container" id="orbit-tech">
-            <div class="orbit-core"></div>
-
-            <!-- Outer ring – clockwise, 30s (4 icons at 90°) -->
-            <div class="orbit-ring orbit-ring-outer">
-                <span class="orbit-icon" style="--angle: 0deg" title="HTML5"><i class="devicon-html5-plain"></i></span>
-                <span class="orbit-icon" style="--angle: 90deg" title="CSS3"><i class="devicon-css3-plain"></i></span>
-                <span class="orbit-icon" style="--angle: 180deg" title="JavaScript"><i
-                        class="devicon-javascript-plain"></i></span>
-                <span class="orbit-icon" style="--angle: 270deg" title="React"><i
-                        class="devicon-react-original"></i></span>
-            </div>
-
-            <!-- Inner ring – counter-clockwise, 36s (3 icons at 120°) -->
-            <div class="orbit-ring orbit-ring-inner">
-                <span class="orbit-icon" style="--angle: 0deg" title="Python"><i
-                        class="devicon-python-plain"></i></span>
-                <span class="orbit-icon" style="--angle: 120deg" title="Git"><i class="devicon-git-plain"></i></span>
-                <span class="orbit-icon" style="--angle: 240deg" title="GitHub"><i
-                        class="devicon-github-original"></i></span>
-            </div>
+            <button class="hdr-btn" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+                <i class="bi bi-moon" aria-hidden="true"></i>
+            </button>
         </div>
 
-        <div class="container text-center">
-
-            <h1 class="fw-bold display-3 text-light mb-2" data-aos="fade-up">
-                Mohammed Naif
-            </h1>
-
-            <h2 class="fs-4 fw-semibold mb-4 red-text" data-aos="fade-up" data-aos-delay="100">
-                FULL STACK WEB DEVELOPER
-            </h2>
-
-            <p class="hero-desc text-soft mx-auto mb-5" id="hero-typewriter"></p>
-
-            <div class="d-flex justify-content-center gap-4 flex-wrap" data-aos="fade-up" data-aos-delay="300">
-
-                <a href="files/Resume.pdf" download
-                    class="text-decoration-none text-light d-flex align-items-center gap-2 text-fluid">
-                    <i class="bi bi-file-earmark-text"></i>
-                    Resume
-                </a>
-
-                <a href="https://www.linkedin.com/in/mohdnaif/"
-                    class="text-decoration-none text-light d-flex align-items-center gap-2 text-fluid">
-                    <i class="bi bi-linkedin"></i>
-                    LinkedIn
-                </a>
-
-                <a href="https://github.com/Naxx-8431"
-                    class="text-decoration-none text-light d-flex align-items-center gap-2 text-fluid">
-                    <i class="bi bi-github"></i>
-                    GitHub
-                </a>
-
+        <nav class="hdr-panel" id="menu" aria-label="Main">
+            <ul class="menu-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="rows">
+                <a class="row" href="files/Resume.pdf" download><span>Resume</span><i class="bi bi-download"
+                        aria-hidden="true"></i></a>
+                <a class="row" href="https://www.linkedin.com/in/mohdnaif/" target="_blank"
+                    rel="noopener"><span>LinkedIn</span><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+                <a class="row" href="https://github.com/Naxx-8431" target="_blank"
+                    rel="noopener"><span>GitHub</span><i class="bi bi-github" aria-hidden="true"></i></a>
             </div>
+        </nav>
+    </header>
 
-        </div>
-    </section>
+    <main id="main">
 
+        <!-- ================= HERO ================= -->
+        <section class="hero" id="top" aria-labelledby="hero-title">
+            <div class="hero-pin">
+                <div class="wrap hero-grid">
+                    <p class="label hero-label">Mohammed Naif</p>
 
-    <hr class="dotted-line">
+                    <!-- Words light up as you scroll (js/hero.js). Without JS the text is simply white. -->
+                    <h1 class="hero-title" id="hero-title">
+                        <span class="ln ln-1"><span class="ln-in">I build fast, responsive,</span></span>
+                        <span class="ln ln-2"><span class="ln-in">and user-friendly</span></span>
+                        <span class="ln ln-3"><span class="ln-in">web applications.</span></span>
+                    </h1>
 
-    <section class="container my-5 skills-section">
-        <h2 class="text-center mb-4">Skills & Technologies</h2>
-
-        <div class="skills-group mb-5">
-            <h6 class="mb-3">Languages</h6>
-            <div class="skills-grid">
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-html5-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">HTML</p>
+                    <div class="hero-foot">
+                        <p class="hero-sub">Using modern full-stack technologies with a focus on clean UI and
+                            efficient backend systems.</p>
+                        <div class="actions">
+                            <a href="#projects" class="btn btn-light">View projects <i class="bi bi-chevron-right"
+                                    aria-hidden="true"></i></a>
+                            <a href="files/Resume.pdf" download class="ulink ulink-light">Download resume <i
+                                    class="bi bi-chevron-right" aria-hidden="true"></i></a>
+                        </div>
                     </div>
                 </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-css3-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">CSS</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-javascript-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">JavaScript</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-typescript-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">TypeScript</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-python-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Python</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-php-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">PHP</p>
-                    </div>
-                </div>
-
             </div>
-        </div>
+        </section>
 
-        <div class="skills-group mb-5">
-            <h6 class="mb-3">Frameworks & Libraries</h6>
-            <div class="skills-grid">
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-react-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">ReactJS</p>
-                    </div>
+        <!-- ================= PROJECTS ================= -->
+        <section class="sec" id="projects" aria-labelledby="projects-title">
+            <div class="wrap">
+                <div class="sec-intro" data-reveal>
+                    <h2 class="title" id="projects-title">Selected projects</h2>
+                    <p class="lede">Full-stack builds across web platforms, authentication and mobile.</p>
                 </div>
 
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-nextjs-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Next.js</p>
-                    </div>
+                <div class="tiles tiles-2">
+                    <a class="tile" href="https://github.com/Naxx-8431/BakeTimes" target="_blank" rel="noopener"
+                        data-reveal>
+                        <div class="tile-media"><img src="images/Bake_Times.webp" width="1404" height="790"
+                                loading="lazy" decoding="async" alt="Bake Times website homepage"></div>
+                        <h3 class="tile-title">Bake Times</h3>
+                        <p class="tile-text">A modern baking platform with curated recipes, holiday baking guides,
+                            subscription management, and comprehensive admin controls.</p>
+                        <p class="tile-meta">HTML · CSS · JavaScript · Node.js · MongoDB</p>
+                        <span class="ulink">View repository <i class="bi bi-chevron-right"
+                                aria-hidden="true"></i></span>
+                    </a>
+
+                    <a class="tile" href="https://github.com/Naxx-8431/anonymous" target="_blank" rel="noopener"
+                        data-reveal>
+                        <div class="tile-media"><img src="images/anonymous.webp" width="1446" height="843"
+                                loading="lazy" decoding="async" alt="Anonymous community platform interface"></div>
+                        <h3 class="tile-title">Anonymous</h3>
+                        <p class="tile-text">An anonymous text-based community platform where users can post and
+                            comment freely with secure authentication and no public identity exposure.</p>
+                        <p class="tile-meta">HTML · CSS · JavaScript · SQLite · Node.js</p>
+                        <span class="ulink">View repository <i class="bi bi-chevron-right"
+                                aria-hidden="true"></i></span>
+                    </a>
                 </div>
 
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-tailwindcss-original colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Tailwind CSS</p>
-                    </div>
-                </div>
+                <div class="tiles tiles-3">
+                    <a class="tile" href="https://github.com/Naxx-8431/auth-system/tree/main" target="_blank"
+                        rel="noopener" data-reveal>
+                        <div class="tile-media"><img src="images/auth-system.webp" width="1404" height="790"
+                                loading="lazy" decoding="async" alt="SecureAuth login and profile screens"></div>
+                        <h3 class="tile-title">SecureAuth</h3>
+                        <p class="tile-text">A secure authentication system with JWT tokens, rate limiting, session
+                            management and user profiles.</p>
+                        <p class="tile-meta">React · Node.js · Express · MongoDB</p>
+                        <span class="ulink">View repository <i class="bi bi-chevron-right"
+                                aria-hidden="true"></i></span>
+                    </a>
 
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-bootstrap-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Bootstrap</p>
-                    </div>
-                </div>
+                    <a class="tile" href="https://github.com/Naxx-8431/QRLens" target="_blank" rel="noopener"
+                        data-reveal>
+                        <div class="tile-media"><img src="images/qrlens.webp" width="1024" height="576" loading="lazy"
+                                decoding="async" alt="QRLens QR code generator and scanner app"></div>
+                        <h3 class="tile-title">QRLens</h3>
+                        <p class="tile-text">A modern QR Code Generator &amp; Scanner built with React and Capacitor.
+                            Supports QR generation from text/URLs, camera &amp; image scanning, download, share, and
+                            native Android support with light/dark theme.</p>
+                        <p class="tile-meta">HTML · CSS · JavaScript · React · Android</p>
+                        <span class="ulink">View repository <i class="bi bi-chevron-right"
+                                aria-hidden="true"></i></span>
+                    </a>
 
+                    <a class="tile" href="https://github.com/Naxx-8431" target="_blank" rel="noopener" data-reveal>
+                        <div class="tile-media"><img src="images/github.webp" width="1024" height="576" loading="lazy"
+                                decoding="async" alt="GitHub profile of Naxx-8431"></div>
+                        <h3 class="tile-title">View more projects</h3>
+                        <p class="tile-text">Check out all my projects on GitHub.</p>
+                        <p class="tile-meta">github.com/Naxx-8431</p>
+                        <span class="ulink">Visit GitHub <i class="bi bi-chevron-right" aria-hidden="true"></i></span>
+                    </a>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="skills-group mb-5">
-            <h6 class="mb-3">Databases & CMS</h6>
-            <div class="skills-grid">
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-mysql-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">MySQL</p>
-                    </div>
+        <!-- ================= ABOUT (navy band) ================= -->
+        <section class="band-dark" id="about" aria-labelledby="about-title">
+            <div class="wrap band-dark-inner" data-reveal>
+                <p class="label" id="about-title">About me</p>
+                <p class="statement">I'm Mohammed Naif, a Full Stack Web Developer who enjoys turning ideas into
+                    clean, functional, and scalable web applications.</p>
+                <p class="band-text">I focus on writing efficient, maintainable code and creating smooth user
+                    experiences across modern web platforms. I've worked across the stack, from building responsive
+                    interfaces with React and Next.js to developing backend logic, APIs, and databases with PHP, SQL,
+                    and MongoDB.</p>
+                <div class="actions actions-center">
+                    <a href="#contact" class="btn btn-light">Get in touch <i class="bi bi-chevron-right"
+                            aria-hidden="true"></i></a>
                 </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-mongodb-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">MongoDB</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-sanity-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Sanity CMS</p>
-                    </div>
-                </div>
-
             </div>
-        </div>
+        </section>
 
-        <div class="skills-group">
-            <h6 class="mb-3">Tools & Platforms</h6>
-            <div class="skills-grid">
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-git-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Git</p>
-                    </div>
+        <!-- ================= EXPERIENCE (editorial rows) ================= -->
+        <section class="sec" id="experience" aria-labelledby="experience-title">
+            <div class="wrap">
+                <div class="sec-intro" data-reveal>
+                    <h2 class="title" id="experience-title">Experience</h2>
                 </div>
 
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-github-plain" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">GitHub</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-nodejs-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Node.js</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-vercel-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Vercel</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-linux-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">Linux</p>
-                    </div>
-                </div>
-
-                <div class="skill-item" data-aos="zoom-in">
-                    <div class="skill-box p-3 border border-secondary rounded-3 text-center">
-                        <i class="devicon-vscode-plain colored" style="font-size: 45px;"></i>
-                        <p class="mt-2 fw-semibold text-soft">VS Code</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </section>
-
-    <hr class="dotted-line">
-
-    <section class="container my-5 projects-section">
-        <h2 class="text-center mb-4">Projects</h2>
-
-        <div class="row g-4">
-
-
-            <div class="col-12 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="card project-card border border-secondary h-100 p-3 text-light">
-                    <img src="images/Bake_Times.webp" loading="lazy" decoding="async" class="card-img-top rounded"
-                        alt="QRLens">
-                    <div class="card-body ">
-                        <h5 class="card-title fw-bold">Bake Times</h5>
-                        <p class="card-text small text-soft">
-                            A modern baking platform with curated recipes, holiday baking guides, subscription
-                            management, and comprehensive admin controls.
+                <article class="story" data-reveal>
+                    <div class="story-aside">
+                        <p class="label label-dark"><span class="live" aria-hidden="true"></span>Aug 2026 - Present
                         </p>
-
-                        <div class="mb-3 btn-group">
-                            <a href="https://github.com/Naxx-8431/BakeTimes"
-                                class="text-decoration-none text-primary me-2 text-fluid">View Repository</a>
-                            <span>
-                                <i class="devicon-html5-plain colored fs-4"></i>
-                                <i class="devicon-css3-plain colored fs-4"></i>
-                                <i class="devicon-javascript-plain colored fs-4"></i>
-                                <i class="devicon-nodejs-plain colored fs-4"></i>
-                                <i class="devicon-mongodb-plain colored fs-4"></i>
-                            </span>
-
-                        </div>
+                        <p class="story-org">COM8 Studio</p>
+                        <p class="story-loc">Dubai, United Arab Emirates (Remote)</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="card project-card border border-secondary h-100 p-3 text-light">
-                    <img src="images/anonymous .webp" loading="lazy" decoding="async" class="card-img-top rounded"
-                        alt="Anonymous">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Anonymous</h5>
-                        <p class="card-text small text-soft">
-                            A anonymous text-based community platform where users can post and comment freely with
-                            secure authentication and no public identity exposure.
-                        </p>
-
-                        <div class="mb-3 btn-group">
-                            <a href="https://github.com/Naxx-8431/anonymous" target="_blank"
-                                class="text-decoration-none text-primary me-2 text-fluid">View Repository</a>
-                            <span>
-                                <i class="devicon-html5-plain colored fs-4"></i>
-                                <i class="devicon-css3-plain colored fs-4"></i>
-                                <i class="devicon-javascript-plain colored fs-4"></i>
-                                <i class="devicon-sqlite-plain colored fs-4"></i>
-                                <i class="devicon-nodejs-plain colored fs-4"></i>
-                            </span>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="card project-card border border-secondary h-100 p-3 text-light">
-                    <img src="images/auth-system.webp" loading="lazy" decoding="async" class="card-img-top rounded"
-                        alt="Project 1">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">SecureAuth</h5>
-                        <p class="card-text small text-soft">
-                            A secure authentication system with JWT tokens, rate limiting, session management and user
-                            profiles.
-                        </p>
-
-                        <div class="mb-3 btn-group">
-                            <a href="https://github.com/Naxx-8431/auth-system/tree/main"
-                                class="text-decoration-none text-primary me-2 text-fluid">View Repository</a>
-                            <span>
-                                <i class="devicon-react-plain colored fs-4"></i>
-                                <i class="devicon-nodejs-plain colored fs-4"></i>
-                                <i class="devicon-express-original colored fs-4"></i>
-                                <i class="devicon-mongodb-plain colored fs-4"></i>
-                            </span>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="card project-card border border-secondary h-100 p-3 text-light">
-                    <img src="images/qrlens.webp" loading="lazy" decoding="async" class="card-img-top rounded"
-                        alt="QRLens">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">QRLens</h5>
-                        <p class="card-text small text-soft">
-                            A modern QR Code Generator &amp; Scanner built with React and Capacitor. Supports QR
-                            generation from text/URLs, camera &amp; image scanning, download, share, and native Android
-                            support with light/dark theme.
-                        </p>
-
-                        <div class="mb-3 btn-group">
-                            <a href="https://github.com/Naxx-8431/QRLens" target="_blank"
-                                class="text-decoration-none text-primary me-2 text-fluid">View Repository</a>
-                            <span>
-                                <i class="devicon-html5-plain colored fs-4"></i>
-                                <i class="devicon-css3-plain colored fs-4"></i>
-                                <i class="devicon-javascript-plain colored fs-4"></i>
-                                <i class="devicon-react-plain colored fs-4"></i>
-                                <i class="devicon-android-plain colored fs-4"></i>
-                            </span>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <div class="col-12 col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="card project-card border border-secondary h-100 p-3 text-light">
-                    <img src="images/github.webp" loading="lazy" decoding="async" class="card-img-top rounded"
-                        alt="GitHub">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">View More Projects</h5>
-                        <p class="card-text small text-soft">
-                            Check out all my projects on GitHub.
-                        </p>
-
-                        <a href="https://github.com/Naxx-8431"
-                            class="text-decoration-none text-primary me-2 text-fluid">Visit GitHub</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="dotted-line">
-
-    <section class="container my-5 experience-section">
-        <h2 class="text-center mb-4" data-aos="fade-up">Experience</h2>
-
-        <div class="row justify-content-center">
-
-            <div class="col-12 mb-5" data-aos="fade-up" data-aos-delay="100">
-                <div class="experience-card border border-secondary rounded-3 p-4 p-lg-5">
-                    <div class="row g-4 g-lg-5">
-
-                        <!-- Left: Role Info -->
-                        <div class="col-12 col-lg-4 experience-left">
-                            <div class="d-flex align-items-center gap-2 mb-3">
-                                <i class="bi bi-briefcase-fill red-text fs-5"></i>
-                                <span class="text-soft small">Aug 2026 – Present</span>
-                            </div>
-                            <h5 class="fw-bold mb-1">Junior Developer</h5>
-                            <p class="red-text fw-semibold mb-1 small">COM8 STUDIO</p>
-                            <p class="text-soft small mb-4">Dubai, United Arab Emirates (Remote)</p>
-                            <p class="text-soft small fw-semibold mb-2 text-uppercase" style="letter-spacing:.05em">
-                                Skills</p>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="exp-skill-tag">Next.js</span>
-                                <span class="exp-skill-tag">Tailwind CSS</span>
-                                <span class="exp-skill-tag">React.js</span>
-                                <span class="exp-skill-tag">MongoDB</span>
-                                <span class="exp-skill-tag">Web Design</span>
-                                <span class="exp-skill-tag">Content Management Systems (CMS)</span>
-                                <span class="exp-skill-tag">Sanity Testing</span>
-                                <span class="exp-skill-tag">Node.js</span>
-                            </div>
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="col-auto d-none d-lg-flex">
-                            <div class="experience-divider"></div>
-                        </div>
-
-                        <!-- Right: Description -->
-                        <div class="col-12 col-lg experience-right">
-                            <p class="fw-semibold mb-3">Description</p>
-                            <ul class="exp-desc-list text-soft">
-                                <li>Develop and maintain modern, responsive web applications and digital experiences
-                                    for COM8 Studio and its clients.</li>
-                                <li>Build production-ready interfaces using React.js, Next.js, TypeScript, and
-                                    Tailwind CSS.</li>
-                                <li>Develop and integrate backend functionality, APIs, authentication, databases, and
-                                    third-party services.</li>
-                                <li>Translate UI/UX designs into polished, responsive, high-performance web
-                                    experiences across desktop and mobile.</li>
-                                <li>Focus on complex interactive interfaces, animations, responsive layouts, and
-                                    reusable component systems.</li>
-                                <li>Collaborate with designers, marketers, and team members to deliver client-focused
-                                    digital solutions.</li>
-                                <li>Troubleshoot and optimize applications to improve performance, responsiveness,
-                                    usability, and overall user experience.</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 mb-5" data-aos="fade-up" data-aos-delay="100">
-                <div class="experience-card border border-secondary rounded-3 p-4 p-lg-5">
-                    <div class="row g-4 g-lg-5">
-
-                        <!-- Left: Role Info -->
-                        <div class="col-12 col-lg-4 experience-left">
-                            <div class="d-flex align-items-center gap-2 mb-3">
-                                <i class="bi bi-briefcase-fill red-text fs-5"></i>
-                                <span class="text-soft small">Mar 2026 – May 2026</span>
-                            </div>
-                            <h5 class="fw-bold mb-1">Full Stack Web Developer Intern</h5>
-                            <p class="red-text fw-semibold mb-4 small">Yenepoya Technology Incubator</p>
-                            <p class="text-soft small fw-semibold mb-2 text-uppercase" style="letter-spacing:.05em">
-                                Skills</p>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="exp-skill-tag">PHP</span>
-                                <span class="exp-skill-tag">MySQL</span>
-                                <span class="exp-skill-tag">SQL</span>
-                                <span class="exp-skill-tag">Git</span>
-                                <span class="exp-skill-tag">GitHub</span>
-                                <span class="exp-skill-tag">JavaScript</span>
-                                <span class="exp-skill-tag">React</span>
-                                <span class="exp-skill-tag">HTML</span>
-                                <span class="exp-skill-tag">CSS</span>
-                            </div>
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="col-auto d-none d-lg-flex">
-                            <div class="experience-divider"></div>
-                        </div>
-
-                        <!-- Right: Description -->
-                        <div class="col-12 col-lg experience-right">
-                            <p class="fw-semibold mb-3">Description</p>
-                            <ul class="exp-desc-list text-soft">
-                                <li>Contributed to backend development of web applications using PHP and SQL.</li>
-                                <li>Designed and managed database structures and queries for efficient data handling.
-                                </li>
-                                <li>Built and integrated server-side logic and APIs to connect frontend interfaces with
-                                    backend systems.</li>
-                                <li>Implemented features such as form processing, authentication, and data management.
-                                </li>
-                                <li>Used Git and GitHub for version control and collaborative development.</li>
-                                <li>Assisted in debugging, testing, and improving performance of web applications.</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12" data-aos="fade-up" data-aos-delay="100">
-                <div class="experience-card border border-secondary rounded-3 p-4 p-lg-5">
-                    <div class="row g-4 g-lg-5">
-
-                        <!-- Left: Role Info -->
-                        <div class="col-12 col-lg-4 experience-left">
-                            <div class="d-flex align-items-center gap-2 mb-3">
-                                <i class="bi bi-briefcase-fill red-text fs-5"></i>
-                                <span class="text-soft small">2026</span>
-                            </div>
-                            <h5 class="fw-bold mb-1">FULL STACK WEB DEVELOPER - FREELANCE PROJECT</h5>
-                            <p class="red-text fw-semibold mb-4 small">E-learning Web Application (Client Project)</p>
-                            <p class="text-soft small fw-semibold mb-2 text-uppercase" style="letter-spacing:.05em">
-                                Skills</p>
-                            <div class="d-flex flex-wrap gap-2">
-
-                                <span class="exp-skill-tag">HTML</span>
-                                <span class="exp-skill-tag">CSS</span>
-                                <span class="exp-skill-tag">JavaScript</span>
-                                <span class="exp-skill-tag">Bootstrap</span>
-                                <span class="exp-skill-tag">PHP</span>
-                                <span class="exp-skill-tag">MySQL</span>
-                                <span class="exp-skill-tag">EmailJS</span>
-                                <span class="exp-skill-tag">Git</span>
-                                <span class="exp-skill-tag">GitHub</span>
-
-
-
-                            </div>
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="col-auto d-none d-lg-flex">
-                            <div class="experience-divider"></div>
-                        </div>
-
-                        <!-- Right: Description -->
-                        <div class="col-12 col-lg experience-right">
-                            <p class="fw-semibold mb-3">Description</p>
-                            <ul class="exp-desc-list text-soft">
-                                <li>Developed a full-stack e-learning web application tailored for client requirements
-                                    with a focus on usability and performance.</li>
-                                <li>Designed responsive UI using HTML, CSS, JavaScript, and Bootstrap for seamless
-                                    experience across devices.
-                                </li>
-                                <li>Built backend functionality using PHP and MySQL for user management, course
-                                    handling, and data storage.</li>
-                                <li>Integrated EmailJS for automated email notifications and communication.
-                                </li>
-                                <li>Implemented WhatsApp API integration for real-time user interaction and updates.
-                                </li>
-                                <li>Focused on clean UI design, smooth navigation, and efficient backend processing.
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    </section>
-
-    <hr class="dotted-line">
-
-    <section class="container my-5" id="about">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-
-                <h2 class="text-center mb-4" data-aos="fade-up">About Me</h2>
-
-                <p class="about-text text-center text-lg-start text-soft" data-aos="fade-up" data-aos-delay="100">
-                    I'm <strong>Mohammed Naif</strong>, a Full Stack Web Developer who enjoys turning ideas
-                    into clean, functional, and scalable web applications.
-                </p>
-
-                <p class="about-text text-center text-lg-start text-soft" data-aos="fade-up" data-aos-delay="100">
-                    I focus on writing efficient, maintainable code and creating smooth
-                    user experiences across modern web platforms. I've worked across the
-                    stack — from building responsive interfaces with React and Next.js to
-                    developing backend logic, APIs, and databases with PHP, SQL, and MongoDB.
-                </p>
-
-                <div class="row" data-aos="fade-up" data-aos-delay="200">
-                    <div class="mt-4 col-12 col-lg-6">
-                        <h5 class="fw-bold text-start ms-1">What I Do</h5>
-                        <ul class="about-list text-soft">
-                            <li>Build responsive, modern web applications with React.js and Next.js</li>
-                            <li>Develop backend systems, APIs, and database structures</li>
-                            <li>Integrate CMS platforms like Sanity for content-driven sites</li>
-                            <li>Create interactive, high-performance, and user-friendly interfaces</li>
+                    <div class="story-main">
+                        <h3 class="story-title">Junior Developer</h3>
+                        <ul class="story-list">
+                            <li>Develop and maintain modern, responsive web applications and digital experiences for
+                                COM8 Studio and its clients.</li>
+                            <li>Build production-ready interfaces using React.js, Next.js, TypeScript, and Tailwind
+                                CSS.</li>
+                            <li>Develop and integrate backend functionality, APIs, authentication, databases, and
+                                third-party services.</li>
+                            <li>Translate UI/UX designs into polished, responsive, high-performance web experiences
+                                across desktop and mobile.</li>
+                            <li>Focus on complex interactive interfaces, animations, responsive layouts, and reusable
+                                component systems.</li>
+                            <li>Collaborate with designers, marketers, and team members to deliver client-focused
+                                digital solutions.</li>
+                            <li>Troubleshoot and optimize applications to improve performance, responsiveness,
+                                usability, and overall user experience.</li>
                         </ul>
+                        <p class="tile-meta">Next.js · Tailwind CSS · React.js · MongoDB · Web Design · Content
+                            Management Systems (CMS) · Sanity Testing · Node.js</p>
                     </div>
+                </article>
 
-
-                    <div class="mt-4 col-12 col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                        <h5 class="fw-bold text-start ms-1">Currently Learning</h5>
-                        <ul class="about-list text-soft">
-                            <li>Advanced TypeScript patterns</li>
-                            <li>Backend architecture and scalable API design</li>
-                            <li>Cloud deployment and DevOps basics</li>
-                            <li>Exploring backend frameworks and cloud-native tools</li>
+                <article class="story" data-reveal>
+                    <div class="story-aside">
+                        <p class="label label-dark">Mar 2026 - May 2026</p>
+                        <p class="story-org">Yenepoya Technology Incubator</p>
+                    </div>
+                    <div class="story-main">
+                        <h3 class="story-title">Full Stack Web Developer Intern</h3>
+                        <ul class="story-list">
+                            <li>Contributed to backend development of web applications using PHP and SQL.</li>
+                            <li>Designed and managed database structures and queries for efficient data handling.
+                            </li>
+                            <li>Built and integrated server-side logic and APIs to connect frontend interfaces with
+                                backend systems.</li>
+                            <li>Implemented features such as form processing, authentication, and data management.
+                            </li>
+                            <li>Used Git and GitHub for version control and collaborative development.</li>
+                            <li>Assisted in debugging, testing, and improving performance of web applications.</li>
                         </ul>
+                        <p class="tile-meta">PHP · MySQL · SQL · Git · GitHub · JavaScript · React · HTML · CSS</p>
                     </div>
+                </article>
+
+                <article class="story" data-reveal>
+                    <div class="story-aside">
+                        <p class="label label-dark">2026</p>
+                        <p class="story-org">E-learning Web Application (Client Project)</p>
+                    </div>
+                    <div class="story-main">
+                        <h3 class="story-title">Full Stack Web Developer, Freelance Project</h3>
+                        <ul class="story-list">
+                            <li>Developed a full-stack e-learning web application tailored for client requirements
+                                with a focus on usability and performance.</li>
+                            <li>Designed responsive UI using HTML, CSS, JavaScript, and Bootstrap for seamless
+                                experience across devices.</li>
+                            <li>Built backend functionality using PHP and MySQL for user management, course handling,
+                                and data storage.</li>
+                            <li>Integrated EmailJS for automated email notifications and communication.</li>
+                            <li>Implemented WhatsApp API integration for real-time user interaction and updates.</li>
+                            <li>Focused on clean UI design, smooth navigation, and efficient backend processing.</li>
+                        </ul>
+                        <p class="tile-meta">HTML · CSS · JavaScript · Bootstrap · PHP · MySQL · EmailJS · Git ·
+                            GitHub</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ================= WHAT I DO (grey band) ================= -->
+        <section class="band-grey" aria-labelledby="do-title">
+            <div class="wrap">
+                <h2 class="title title-center" id="do-title" data-reveal>What I do</h2>
+
+                <ul class="perks" data-reveal>
+                    <li>
+                        <span class="pixel" data-pixel="monitor" aria-hidden="true"></span>
+                        <p>Build responsive, modern web applications with React.js and Next.js</p>
+                    </li>
+                    <li>
+                        <span class="pixel" data-pixel="server" aria-hidden="true"></span>
+                        <p>Develop backend systems, APIs, and database structures</p>
+                    </li>
+                    <li>
+                        <span class="pixel" data-pixel="layers" aria-hidden="true"></span>
+                        <p>Integrate CMS platforms like Sanity for content-driven sites</p>
+                    </li>
+                    <li>
+                        <span class="pixel" data-pixel="bolt" aria-hidden="true"></span>
+                        <p>Create interactive, high-performance, and user-friendly interfaces</p>
+                    </li>
+                </ul>
+
+                <div class="learning" data-reveal>
+                    <p class="label label-dark">Currently learning</p>
+                    <ul>
+                        <li>Advanced TypeScript patterns</li>
+                        <li>Backend architecture and scalable API design</li>
+                        <li>Cloud deployment and DevOps basics</li>
+                        <li>Exploring backend frameworks and cloud-native tools</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <hr class="dotted-line">
+        <!-- ================= SKILLS (spec table) ================= -->
+        <section class="sec" id="skills" aria-labelledby="skills-title">
+            <div class="wrap">
+                <div class="sec-intro" data-reveal>
+                    <h2 class="title" id="skills-title">Skills &amp; technologies</h2>
+                </div>
 
-    <section class="container my-5" id="contact">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-
-                <h2 class="mb-4 text-center">Contact Me</h2>
-
-                <p class="mb-5 contact-text text-soft text-center">
-                    Feel free to reach out if you want to collaborate, have a project idea, or just want to say hello.
-                </p>
-
-                <!-- Contact Form -->
-                <form id="contact-form" class="mb-5" data-aos="fade-up">
-
-                    <div class="row mb-4">
-                        <div class="col-md-6 mb-4 mb-md-0">
-                            <div class="form-floating">
-                                <input type="text" class="form-control bg-dark text-light border-secondary"
-                                    id="user_name" name="user_name" required placeholder="Your Name">
-                                <label for="user_name" class="text-soft">Name</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control bg-dark text-light border-secondary"
-                                    id="user_email" name="user_email" required placeholder="your.email@example.com">
-                                <label for="user_email" class="text-soft">Email</label>
-                            </div>
-                        </div>
+                <dl class="specs" data-reveal>
+                    <div class="spec">
+                        <dt>Languages</dt>
+                        <dd>
+                            <span><i class="devicon-html5-plain" aria-hidden="true"></i>HTML</span>
+                            <span><i class="devicon-css3-plain" aria-hidden="true"></i>CSS</span>
+                            <span><i class="devicon-javascript-plain" aria-hidden="true"></i>JavaScript</span>
+                            <span><i class="devicon-typescript-plain" aria-hidden="true"></i>TypeScript</span>
+                            <span><i class="devicon-python-plain" aria-hidden="true"></i>Python</span>
+                            <span><i class="devicon-php-plain" aria-hidden="true"></i>PHP</span>
+                        </dd>
                     </div>
-
-
-                    <div class="mb-4">
-                        <div class="form-floating">
-                            <textarea class="form-control bg-dark text-light border-secondary" id="message"
-                                name="message" required placeholder="Your message here..."
-                                style="height: 150px;"></textarea>
-                            <label for="message" class="text-soft">Message</label>
-                        </div>
+                    <div class="spec">
+                        <dt>Frameworks &amp; libraries</dt>
+                        <dd>
+                            <span><i class="devicon-react-plain" aria-hidden="true"></i>ReactJS</span>
+                            <span><i class="devicon-nextjs-plain" aria-hidden="true"></i>Next.js</span>
+                            <span><i class="devicon-tailwindcss-original" aria-hidden="true"></i>Tailwind CSS</span>
+                            <span><i class="devicon-bootstrap-plain" aria-hidden="true"></i>Bootstrap</span>
+                        </dd>
                     </div>
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-outline-primary px-5 py-2 send-btn" id="submit-btn">
-                            <i class="bi bi-send-fill me-2"></i>Send Message
-                        </button>
+                    <div class="spec">
+                        <dt>Databases &amp; CMS</dt>
+                        <dd>
+                            <span><i class="devicon-mysql-plain" aria-hidden="true"></i>MySQL</span>
+                            <span><i class="devicon-mongodb-plain" aria-hidden="true"></i>MongoDB</span>
+                            <span><i class="devicon-sanity-plain" aria-hidden="true"></i>Sanity CMS</span>
+                        </dd>
                     </div>
+                    <div class="spec">
+                        <dt>Tools &amp; platforms</dt>
+                        <dd>
+                            <span><i class="devicon-git-plain" aria-hidden="true"></i>Git</span>
+                            <span><i class="devicon-github-original" aria-hidden="true"></i>GitHub</span>
+                            <span><i class="devicon-nodejs-plain" aria-hidden="true"></i>Node.js</span>
+                            <span><i class="devicon-vercel-original" aria-hidden="true"></i>Vercel</span>
+                            <span><i class="devicon-linux-plain" aria-hidden="true"></i>Linux</span>
+                            <span><i class="devicon-vscode-plain" aria-hidden="true"></i>VS Code</span>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
 
-                    <!-- Status Messages -->
-                    <div id="form-status" class="mt-3 text-center"></div>
+        <!-- ================= CONTACT (black panel) ================= -->
+        <section class="sec" id="contact" aria-labelledby="contact-title">
+            <div class="wrap">
+            <div class="panel" data-reveal>
+                <h2 class="title title-center" id="contact-title">Contact me</h2>
+                <p class="panel-text">Feel free to reach out if you want to collaborate, have a project idea, or
+                    just want to say hello.</p>
+
+                <form id="contact-form" class="form" novalidate>
+                    <div class="field">
+                        <label class="sr-only" for="user_name">Name</label>
+                        <input type="text" id="user_name" name="user_name" required autocomplete="name"
+                            placeholder="Name">
+                    </div>
+                    <div class="field">
+                        <label class="sr-only" for="user_email">Email address</label>
+                        <input type="email" id="user_email" name="user_email" required autocomplete="email"
+                            placeholder="Email address">
+                    </div>
+                    <div class="field">
+                        <label class="sr-only" for="message">Message</label>
+                        <textarea id="message" name="message" required rows="5" placeholder="Message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-yellow" id="submit-btn">
+                        <span>Send message</span> <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                    </button>
+                    <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
                 </form>
+            </div>
+            </div>
+        </section>
 
-                <!-- Alternative Contact Methods -->
-                <div class="text-center">
-                    <p class="text-soft mb-3">Or connect with me on:</p>
-                    <div class="d-flex justify-content-center gap-4 flex-wrap">
-                        <a href="https://wa.me/918431479290" target="_blank"
-                            class="text-decoration-none text-light d-flex align-items-center gap-2 text-fluid">
-                            <i class="bi bi-telephone-fill"></i> +91 8431479290
-                        </a>
+    </main>
 
-                        <a href="mailto:mnaif7605@gmail.com"
-                            onclick="window.open('https://mail.google.com/mail/?view=cm&fs=1&to=mnaif7605@gmail.com'); return false;"
-                            class="text-decoration-none text-light d-flex align-items-center gap-2 text-fluid">
-                            <i class="bi bi-envelope-fill"></i> Email
-                        </a>
+    <!-- ================= FOOTER ================= -->
+    <footer class="ftr">
+        <div class="wrap ftr-inner">
+        <nav class="ftr-links" aria-label="Footer">
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </nav>
 
-                        <a href="https://github.com/Naxx-8431"
-                            class="text-decoration-none text-light d-flex align-items-center gap-2 text-fluid">
-                            <i class="bi bi-github"></i> GitHub
-                        </a>
+        <div class="rows rows-dark">
+            <a class="row" href="https://wa.me/918431479290" target="_blank" rel="noopener"><span>WhatsApp: +91
+                    8431479290</span><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+            <a class="row" href="mailto:mnaif7605@gmail.com" id="email-link"><span>Email:
+                    mnaif7605@gmail.com</span><i class="bi bi-envelope" aria-hidden="true"></i></a>
+            <a class="row" href="files/Resume.pdf" download><span>Resume: PDF</span><i class="bi bi-download"
+                    aria-hidden="true"></i></a>
+            <button class="row" type="button" id="theme-row"><span>Theme: <span
+                        id="theme-row-label">Light</span></span><i class="bi bi-circle-half"
+                    aria-hidden="true"></i></button>
+        </div>
 
-
-
-                        <a href="https://www.linkedin.com/in/mohdnaif/"
-                            class="text-decoration-none text-light d-flex align-items-center gap-2 text-fluid">
-                            <i class="bi bi-linkedin"></i> LinkedIn
-                        </a>
-                    </div>
-                </div>
-
+        <div class="ftr-bar">
+            <p>© <span id="year"></span> Mohammed Naif. All Rights Reserved.</p>
+            <div class="ftr-social">
+                <a href="https://github.com/Naxx-8431" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://www.linkedin.com/in/mohdnaif/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="#top">Back to top</a>
             </div>
         </div>
-    </section>
-
-
-    <footer class="mt-5 py-4 text-center">
-        <div class="container">
-
-            <p class="mb-2 footer-text text-light text-soft">
-                © <span id="year"></span> Mohammed Naif. All Rights Reserved.
-            </p>
-
         </div>
     </footer>
 
-
-
     <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        // Initialize EmailJS with your public key
-        emailjs.init('uPNxjyjvXRoiveIUv');
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
+    <script>
+        if (window.emailjs) emailjs.init('uPNxjyjvXRoiveIUv');
     </script>
 
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+    <script src="js/hero.js" defer></script>
     <script src="js/main.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
+</html>

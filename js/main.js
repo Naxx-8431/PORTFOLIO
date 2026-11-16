@@ -1,338 +1,260 @@
-document.getElementById("year").textContent = new Date().getFullYear();
-
-// ========================================
-// LENIS SMOOTH SCROLL (global rAF-driven)
-// ========================================
-let lenis;
 (function () {
-    if (typeof Lenis === 'undefined') return;
+    'use strict';
 
-    lenis = new Lenis({
-        duration: 0.8,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        syncTouch: false,
-        touchMultiplier: 1
-    });
+    var root = document.documentElement;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
+    // ========================================
+    // FOOTER YEAR
+    // ========================================
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ========================================
+    // LENIS SMOOTH SCROLL
+    // ========================================
+    var lenis = null;
+    if (typeof Lenis !== 'undefined' && !reduceMotion.matches) {
+        lenis = new Lenis({
+            duration: 0.8,
+            easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+            smoothWheel: true,
+            syncTouch: false
+        });
+        (function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        })(0);
     }
-    requestAnimationFrame(raf);
 
-    // Route in-page anchor links through Lenis instead of native jump
+    function scrollToTarget(target) {
+        var isTop = target.id === 'top';
+        var offset = isTop ? 0 : -72;
+        if (lenis) {
+            lenis.scrollTo(isTop ? 0 : target, { offset: offset });
+        } else {
+            var y = isTop ? 0 : target.getBoundingClientRect().top + window.pageYOffset + offset;
+            window.scrollTo({ top: y, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+        }
+    }
+
+    // ========================================
+    // MENU (header bar grows into a panel)
+    // ========================================
+    var menuBtn = document.getElementById('menu-btn');
+    var menu = document.getElementById('menu');
+
+    function setMenu(open) {
+        root.classList.toggle('menu-open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        menu.inert = !open;
+        document.querySelectorAll('main, footer').forEach(function (el) { el.inert = open; });
+        if (lenis) { open ? lenis.stop() : lenis.start(); }
+        else { document.body.style.overflow = open ? 'hidden' : ''; }
+        if (open) {
+            var first = menu.querySelector('a');
+            if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 60);
+        }
+    }
+
+    if (menuBtn && menu) {
+        menu.inert = true;
+        menuBtn.addEventListener('click', function () {
+            setMenu(!root.classList.contains('menu-open'));
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && root.classList.contains('menu-open')) {
+                setMenu(false);
+                menuBtn.focus();
+            }
+        });
+        document.addEventListener('click', function (e) {
+            if (root.classList.contains('menu-open') && !e.target.closest('#hdr')) setMenu(false);
+        });
+    }
+
+    // In-page anchors
     document.addEventListener('click', function (e) {
-        const link = e.target.closest('a[href^="#"]');
+        var link = e.target.closest('a[href^="#"]');
         if (!link) return;
-
-        const targetId = link.getAttribute('href');
-        if (!targetId || targetId.length <= 1) return;
-
-        const target = document.querySelector(targetId);
+        var id = link.getAttribute('href');
+        if (!id || id.length <= 1) return;
+        var target = document.querySelector(id);
         if (!target) return;
 
         e.preventDefault();
-        lenis.scrollTo(target);
+        if (root.classList.contains('menu-open')) setMenu(false);
+        scrollToTarget(target);
+        if (history.replaceState) history.replaceState(null, '', id === '#top' ? location.pathname : id);
     });
-})();
 
-// EmailJS Contact Form Handler
-(function () {
-    const contactForm = document.getElementById('contact-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const formStatus = document.getElementById('form-status');
+    // ========================================
+    // THEME (header icon + footer row)
+    // ========================================
+    var themeBtn = document.getElementById('theme-toggle');
+    var themeRow = document.getElementById('theme-row');
+    var themeRowLabel = document.getElementById('theme-row-label');
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
+    function syncTheme() {
+        var dark = root.getAttribute('data-theme') === 'dark';
+        if (themeBtn) {
+            themeBtn.querySelector('i').className = dark ? 'bi bi-sun' : 'bi bi-moon';
+            themeBtn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+        if (themeRowLabel) themeRowLabel.textContent = dark ? 'Dark' : 'Light';
+    }
 
-            // Disable button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
-            formStatus.innerHTML = '';
+    function toggleTheme() {
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) { /* storage blocked */ }
+        syncTheme();
+    }
 
-            // Get form data
-            const formData = {
-                user_name: document.getElementById('user_name').value,
-                user_email: document.getElementById('user_email').value,
-                message: document.getElementById('message').value
-            };
+    syncTheme();
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (themeRow) themeRow.addEventListener('click', toggleTheme);
 
-            // Send email using EmailJS
-            emailjs.send('service_68ip7uq', 'template_mttqm7v', formData)
-                .then(function (response) {
-                    // Success
-                    formStatus.innerHTML = `
-                        <div class="alert alert-success" role="alert">
-                            <i class="bi bi-check-circle-fill me-2"></i>
-                            Message sent successfully! I'll get back to you soon.
-                        </div>
-                    `;
-                    contactForm.reset();
+    // ========================================
+    // COLUMN DOTS — one per layout column (12 desktop / 4 mobile)
+    // ========================================
+    var dots = document.querySelector('.dot-matrix');
+    function sizeDots() {
+        if (!dots) return;
+        var cols = window.innerWidth >= 768 ? 12 : 4;
+        dots.style.setProperty('--cell', (dots.clientWidth / cols).toFixed(2) + 'px');
+    }
+    sizeDots();
+    window.addEventListener('resize', sizeDots);
 
-                    // Auto-hide success message after 5 seconds
-                    setTimeout(function () {
-                        formStatus.innerHTML = '';
-                    }, 5000);
+    // ========================================
+    // PIXEL ICONS (7×7 dot grids → SVG)
+    // ========================================
+    var PIXELS = {
+        monitor: ['1111111', '1000001', '1000001', '1000001', '1111111', '0001000', '0111110'],
+        server: ['1111111', '1000011', '1111111', '0000000', '1111111', '1000011', '1111111'],
+        layers: ['0001000', '0110110', '1000001', '0110110', '1001001', '0110110', '0001000'],
+        bolt: ['0000110', '0001100', '0011000', '0111110', '0001100', '0011000', '0110000']
+    };
+    document.querySelectorAll('[data-pixel]').forEach(function (el) {
+        var grid = PIXELS[el.getAttribute('data-pixel')];
+        if (!grid) return;
+        var circles = '';
+        grid.forEach(function (row, y) {
+            row.split('').forEach(function (bit, x) {
+                if (bit === '1') circles += '<circle cx="' + (x * 4 + 2) + '" cy="' + (y * 4 + 2) + '" r="1.5"/>';
+            });
+        });
+        el.innerHTML = '<svg viewBox="0 0 28 28" fill="currentColor">' + circles + '</svg>';
+    });
 
-                    // Re-enable button
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="bi bi-send-fill me-2"></i>Send Message';
-                }, function (error) {
-                    // Error
-                    formStatus.innerHTML = `
-                        <div class="alert alert-danger" role="alert">
-                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                            Oops! Something went wrong. Please try again or email me directly.
-                        </div>
-                    `;
-
-                    // Re-enable button
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="bi bi-send-fill me-2"></i>Send Message';
+    // ========================================
+    // SCROLL REVEAL
+    // ========================================
+    var revealEls = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window && !reduceMotion.matches) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                var sibs = Array.prototype.filter.call(el.parentElement.children, function (c) {
+                    return c.hasAttribute('data-reveal');
                 });
-        });
-    }
-})();
-
-// ========================================
-// THEME TOGGLE FUNCTIONALITY
-// ========================================
-(function () {
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const body = document.body;
-
-    // Check for saved theme preference or default to light
-    const currentTheme = localStorage.getItem('theme') || 'light';
-
-    // Apply saved theme on page load
-    if (currentTheme === 'dark') {
-        body.classList.add('dark-theme');
-        themeIcon.classList.remove('bi-moon-fill');
-        themeIcon.classList.add('bi-sun-fill');
-    }
-
-    // Toggle theme on button click
-    themeToggle.addEventListener('click', function () {
-        body.classList.toggle('dark-theme');
-
-        // Update icon
-        if (body.classList.contains('dark-theme')) {
-            themeIcon.classList.remove('bi-moon-fill');
-            themeIcon.classList.add('bi-sun-fill');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            themeIcon.classList.remove('bi-sun-fill');
-            themeIcon.classList.add('bi-moon-fill');
-            localStorage.setItem('theme', 'light');
-        }
-    });
-})();
-
-// ========================================
-// CUSTOM SCROLL INDICATOR FUNCTIONALITY
-// ========================================
-(function () {
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    const scrollThumb = document.getElementById('scroll-thumb');
-
-    if (!scrollIndicator || !scrollThumb) return;
-
-    let isDragging = false;
-
-    // Update thumb position based on scroll
-    function updateThumbPosition() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        // Calculate scroll percentage
-        const scrollPercentage = scrollTop / (documentHeight - windowHeight);
-
-        // Calculate thumb position within the track (not indicator)
-        const scrollTrack = document.querySelector('.scroll-track');
-        if (!scrollTrack) return;
-
-        const trackHeight = scrollTrack.offsetHeight;
-        const thumbHeight = scrollThumb.offsetHeight;
-        const maxThumbTop = trackHeight - thumbHeight;
-        const thumbTop = scrollPercentage * maxThumbTop;
-
-        scrollThumb.style.top = `${thumbTop}px`;
-
-        // Update fill height
-        const scrollFill = document.getElementById('scroll-fill');
-        if (scrollFill) {
-            scrollFill.style.height = `${scrollPercentage * 100}%`;
-        }
-    }
-
-    // Scroll page based on thumb position
-    function scrollToPosition(clientY) {
-        const scrollTrack = document.querySelector('.scroll-track');
-        if (!scrollTrack) return;
-
-        const trackRect = scrollTrack.getBoundingClientRect();
-        const trackHeight = scrollTrack.offsetHeight;
-        const thumbHeight = scrollThumb.offsetHeight;
-
-        // Calculate click position relative to track
-        const clickY = clientY - trackRect.top;
-
-        // Calculate scroll percentage
-        const maxThumbTop = trackHeight - thumbHeight;
-        let thumbTop = Math.max(0, Math.min(clickY, maxThumbTop));
-        const scrollPercentage = thumbTop / maxThumbTop;
-
-        // Calculate and set scroll position
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = scrollPercentage * (documentHeight - windowHeight);
-
-        if (lenis) {
-            lenis.scrollTo(scrollTop);
-        } else {
-            window.scrollTo({
-                top: scrollTop,
-                behavior: 'smooth'
+                el.style.transitionDelay = Math.min(Math.max(0, sibs.indexOf(el)), 4) * 80 + 'ms';
+                el.classList.add('is-in');
+                io.unobserve(el);
             });
-        }
-    }
-
-    // Update on scroll — stay in sync with Lenis when it's driving the page
-    if (lenis) {
-        lenis.on('scroll', updateThumbPosition);
+        }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+        revealEls.forEach(function (el) { io.observe(el); });
     } else {
-        window.addEventListener('scroll', updateThumbPosition);
-    }
-    window.addEventListener('resize', updateThumbPosition);
-
-    // Click on indicator to jump
-    scrollIndicator.addEventListener('click', function (e) {
-        if (e.target === scrollIndicator) {
-            scrollToPosition(e.clientY);
-        }
-    });
-
-    // Drag functionality
-    scrollThumb.addEventListener('mousedown', function (e) {
-        isDragging = true;
-        e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', function (e) {
-        if (isDragging) {
-            scrollToPosition(e.clientY);
-        }
-    });
-
-    document.addEventListener('mouseup', function () {
-        isDragging = false;
-    });
-
-    // Touch support for mobile
-    scrollThumb.addEventListener('touchstart', function (e) {
-        isDragging = true;
-        e.preventDefault();
-    });
-
-    document.addEventListener('touchmove', function (e) {
-        if (isDragging && e.touches.length > 0) {
-            scrollToPosition(e.touches[0].clientY);
-        }
-    });
-
-    document.addEventListener('touchend', function () {
-        isDragging = false;
-    });
-
-    // Initial position
-    updateThumbPosition();
-})();
-
-
-// TYPEWRITER EFFECT — HERO DESCRIPTION
-
-(function () {
-    const el = document.getElementById('hero-typewriter');
-    if (!el) return;
-
-    const text = 'I build fast, responsive, and user-friendly web applications using modern full-stack technologies with a focus on clean UI and efficient backend systems.';
-    let i = 0;
-
-    function type() {
-        if (i < text.length) {
-            el.textContent += text[i];
-            i++;
-            setTimeout(type, 18);
-        }
+        revealEls.forEach(function (el) { el.classList.add('is-in'); });
     }
 
-    // Start after a short delay so the heading/subtitle animate in first
-    setTimeout(type, 800);
-})();
+    // ========================================
+    // BLUR-UP IMAGES
+    // ========================================
+    document.querySelectorAll('.tile-media img').forEach(function (img) {
+        function done() { img.classList.add('is-loaded'); }
+        if (img.complete) done();
+        else {
+            img.addEventListener('load', done, { once: true });
+            img.addEventListener('error', done, { once: true });
+        }
+    });
 
-// ========================================
-// ORBIT DEPTH EFFECT – subtle 3D perspective
-// Icons at the back of the orbit fade + shrink,
-// icons at the front are full opacity + size.
-// ========================================
-(function () {
-    const rings = document.querySelectorAll('.orbit-ring');
-    if (!rings.length) return;
-
-    // Pre-cache icon data for performance
-    const ringData = [];
-    rings.forEach(function (ring) {
-        const icons = [];
-        ring.querySelectorAll('.orbit-icon').forEach(function (icon) {
-            var angleStr = icon.style.getPropertyValue('--angle');
-            var angleDeg = parseFloat(angleStr) || 0;
-            var angleRad = angleDeg * (Math.PI / 180);
-            icons.push({ el: icon.querySelector('i'), wrapper: icon, angleRad: angleRad });
+    // ========================================
+    // EMAIL — Gmail compose on desktop, native mail app on touch
+    // ========================================
+    var emailLink = document.getElementById('email-link');
+    if (emailLink) {
+        emailLink.addEventListener('click', function (e) {
+            if (window.matchMedia('(pointer: coarse)').matches) return;
+            var win = window.open('https://mail.google.com/mail/?view=cm&fs=1&to=mnaif7605@gmail.com', '_blank');
+            if (win) { win.opener = null; e.preventDefault(); }
         });
-        ringData.push({ ring: ring, icons: icons });
-    });
+    }
 
-    function updateDepth() {
-        ringData.forEach(function (data) {
-            var transform = getComputedStyle(data.ring).transform;
-            var ringAngle = 0;
+    // ========================================
+    // CONTACT FORM (EmailJS)
+    // ========================================
+    (function () {
+        var form = document.getElementById('contact-form');
+        var btn = document.getElementById('submit-btn');
+        var status = document.getElementById('form-status');
+        if (!form || !btn || !status) return;
 
-            if (transform && transform !== 'none') {
-                var match = transform.match(/matrix\((.+)\)/);
-                if (match) {
-                    var v = match[1].split(',');
-                    ringAngle = Math.atan2(parseFloat(v[1]), parseFloat(v[0]));
-                }
+        var idle = btn.innerHTML;
+        var timer = null;
+
+        function say(type, msg) {
+            clearTimeout(timer);
+            status.className = 'form-status' + (type ? ' is-' + type : '');
+            status.textContent = msg;
+        }
+
+        function validate() {
+            var ok = true;
+            form.querySelectorAll('input, textarea').forEach(function (f) {
+                var valid = f.checkValidity() && f.value.trim() !== '';
+                f.closest('.field').classList.toggle('is-invalid', !valid);
+                f.setAttribute('aria-invalid', String(!valid));
+                if (!valid && ok) { f.focus(); ok = false; }
+            });
+            return ok;
+        }
+
+        form.addEventListener('input', function (e) {
+            var field = e.target.closest('.field');
+            if (field && e.target.checkValidity() && e.target.value.trim()) {
+                field.classList.remove('is-invalid');
+                e.target.setAttribute('aria-invalid', 'false');
             }
+        });
 
-            data.icons.forEach(function (icon) {
-                if (!icon.el) return;
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (!validate()) return say('error', 'Please fill in your name, a valid email and a message.');
+            if (!window.emailjs) return say('error', 'Form unavailable — email mnaif7605@gmail.com directly.');
 
-                // Skip hovered icons – CSS :hover !important handles those
-                if (icon.el.matches(':hover')) return;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner" aria-hidden="true"></span><span>Sending…</span>';
+            say('', '');
 
-                var totalAngle = ringAngle + icon.angleRad;
-                var depth = Math.sin(totalAngle);         // -1 (back/top) → 1 (front/bottom)
-                var t = (depth + 1) / 2;                  // normalise: 0 → 1
-
-                // Opacity: 0.4 (back) → 1.0 (front)
-                icon.el.style.opacity = (0.4 + t * 0.6).toFixed(2);
-
-                // Scale: 0.88 (back) → 1.0 (front)
-                icon.el.style.scale = (0.88 + t * 0.12).toFixed(2);
-
-                // Z-index: back icons behind front icons
-                icon.wrapper.style.zIndex = Math.round(t * 10);
+            emailjs.send('service_68ip7uq', 'template_mttqm7v', {
+                user_name: form.user_name.value.trim(),
+                user_email: form.user_email.value.trim(),
+                message: form.message.value.trim()
+            }).then(function () {
+                say('success', "Message sent successfully! I'll get back to you soon.");
+                form.reset();
+                timer = setTimeout(function () { say('', ''); }, 6000);
+            }, function () {
+                say('error', 'Oops! Something went wrong. Please try again or email me directly.');
+            }).then(function () {
+                btn.disabled = false;
+                btn.innerHTML = idle;
             });
         });
-
-        requestAnimationFrame(updateDepth);
-    }
-
-    requestAnimationFrame(updateDepth);
+    })();
 })();
